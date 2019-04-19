@@ -10,7 +10,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.usertesting.com/dashboard*"],
-      "js": ["angular.min.js","jquery-3.3.1.slim.min.js","ut-dl.js"]
+      "js": ["angular.min.js","jquery-3.3.1.slim.min.js","utscrapper.js"]
     }
   ]
 

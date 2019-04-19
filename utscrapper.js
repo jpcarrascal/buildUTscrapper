@@ -38,8 +38,9 @@ function getList(item)
             {
             var user = $(this).find(".tester-details__username").first().text().trim();
             var time = $(this).find(".ml-2x.ng-binding.ng-scope").first().text().trim();
+            var seconds = toSeconds(time);
             var completed = false;
-            if (longEnough(time))
+            if (seconds > 180)
                 completed = true;
             console.log("participant: "+ user + ", time:  " + time + ", test: " + item + ", completed: " + completed);
         }
@@ -49,25 +50,28 @@ function getList(item)
         function() 
         {
             location.reload();
-    }, 5000);
+    }, 9000);
 }
 
-function longEnough(time)
+function toSeconds(time)
 {
     var timeArray = time.split(":");
-    if (timeArray.length == 2)
+    var totalTime = 0;
+    if((timeArray.length == 2))
+    {
+        var hours = parseInt(timeArray[0]); 
+        var mins = parseInt(timeArray[1]);
+        var secs = parseInt(timeArray[2]);
+        totalTime = hours * 3600 + mins * 60 + secs;
+    }
+    else if (timeArray.length == 2)
     {
         var mins = parseInt(timeArray[0]);
         var secs = parseInt(timeArray[1]);
-        var totalTime = mins * 60 + secs;
-        if (totalTime > 180)
-            return true;
-        else
-            return false;
+        totalTime = mins * 60 + secs;
     }
-    else if (timeArray.length < 2)
-        return false;
-    else
-        return true;
+    else if (timeArray.length == 1)
+        totalTime = parseInt(timeArray[0]);
+    return totalTime;
 }
 
