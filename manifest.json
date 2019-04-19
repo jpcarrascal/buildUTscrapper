@@ -3,14 +3,14 @@
   "name": "UT DL",
   "version": "0.1",
   "description": "Tries to download UT data.",
-
+  "permissions": [ "downloads" ],
   "icons": {
     "48": "icon.png"
   },
   "content_scripts": [
     {
       "matches": ["https://www.usertesting.com/dashboard*"],
-      "js": ["angular.min.js","jquery-3.3.1.slim.min.js","utscrapper.js"]
+      "js": ["angular.min.js","jquery-3.4.0.min.js","utscrapper.js"]
     }
   ]
 
