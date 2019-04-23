@@ -88,7 +88,7 @@ function saveText(filename, text) {
  function submitData(studyJsonData)
  {
     var saveStudyForm = document.createElement("form");
-    saveStudyForm.target = "Map";
+    saveStudyForm.target = "Submitting";
     saveStudyForm.method = "POST"; // or "post" if appropriate
     saveStudyForm.action = "https://buildleaderboardapi.azurewebsites.net/insert-sessions.php";
 
@@ -100,7 +100,7 @@ function saveText(filename, text) {
 
     document.body.appendChild(saveStudyForm);
     
-    win = window.open("", "Submitting...", "status=0,title=0,height=100,width=100,scrollbars=1");
+    win = window.open("", "Submitting", "status=0,title=0,height=100,width=100,scrollbars=1");
 
     if (win) {
         saveStudyForm.submit();
