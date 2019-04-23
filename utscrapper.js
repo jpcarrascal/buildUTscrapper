@@ -1,6 +1,5 @@
-var studyList = ["2668545","2605117"];
-console.log("Extension UTscrapper loaded");
-
+console.log("Extension UTscraper loaded");
+var win;
 
 $(document).ready(function(){
         $(window).on('hashchange', function() {
@@ -11,24 +10,21 @@ $(document).ready(function(){
 
 function scrapeIt()
 {
-    if( window.location.href.lastIndexOf("/study/") != -1 )
+    // https://www.usertesting.com/dashboard#!/study/2668545/sessions
+    if( window.location.href.lastIndexOf("/study/") != -1  && window.location.href.lastIndexOf("/sessions") != -1)
     {
-        studyList.forEach( function(study, index) {
-            var url = "https://www.usertesting.com/dashboard#!/study/" + study + "/sessions";
-            if (window.location.href == url)
+        var urlArray = window.location.href.split("/");
+        var study = urlArray[5];
+        console.log("Study found: " + study + " Yay!!!");
+        console.log("Waiting 5 seconds for participant data...");
+        var scrapeTimeout = setTimeout(
+            function() 
             {
-                console.log("Study found: " + study + " Yay!!!");
-                console.log("Waiting 5 seconds for participant data...");
-                var scrapeTimeout = setTimeout(
-                    function() 
-                    {
-                        getList(study);
-                    }, 5000);
-            }
-        });
+                getList(study);
+            }, 5000);
     }
     else
-        console.log("Not a study page...");
+        console.log("Not a study page.");
 }
 
 function getList(study)
@@ -49,13 +45,15 @@ function getList(study)
             console.log("participant: "+ user + ", time:  " + seconds + ", test: " + study + ", completed: " + completed);
         }
     });
-    saveText("studyData.txt",JSON.stringify(studyData));
+    //saveText("studyData.txt",JSON.stringify(studyData));
+    console.log("Sending to backend...");
+    submitData(JSON.stringify(studyData));
     console.log("Waiting 5 seconds to reload...");
     var reloadTimeout = setTimeout(
         function() 
         {
             location.reload();
-    }, 9000);
+    }, 20000);
 }
 
 function toSeconds(time)
@@ -85,4 +83,32 @@ function saveText(filename, text) {
     tempElem.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     tempElem.setAttribute('download', filename);
     tempElem.click();
+ }
+
+ function submitData(studyJsonData)
+ {
+    var saveStudyForm = document.createElement("form");
+    saveStudyForm.target = "Map";
+    saveStudyForm.method = "POST"; // or "post" if appropriate
+    saveStudyForm.action = "https://buildleaderboardapi.azurewebsites.net/insert-sessions.php";
+
+    var studyInput = document.createElement("input");
+    studyInput.type = "text";
+    studyInput.name = "studyData";
+    studyInput.value = studyJsonData;
+    saveStudyForm.appendChild(studyInput);
+
+    document.body.appendChild(saveStudyForm);
+    
+    win = window.open("", "Submitting...", "status=0,title=0,height=100,width=100,scrollbars=1");
+
+    if (win) {
+        saveStudyForm.submit();
+        setTimeout(function() 
+            {
+                win.close();
+        }, 2000);
+    } else {
+        alert('You must allow popups for this extension to work.');
+    }
  }
