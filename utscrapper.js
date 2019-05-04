@@ -16,12 +16,12 @@ function scrapeIt()
         var urlArray = window.location.href.split("/");
         var study = urlArray[5];
         console.log("Study found: " + study + " Yay!!!");
-        console.log("Waiting 5 seconds for participant data...");
+        console.log("Waiting 10 seconds for participant data...");
         var scrapeTimeout = setTimeout(
             function() 
             {
                 getList(study);
-            }, 5000);
+            }, 10000);
     }
     else
         console.log("Not a study page.");
@@ -52,8 +52,9 @@ function getList(study)
     var reloadTimeout = setTimeout(
         function() 
         {
-            location.reload();
-    }, 20000);
+            //location.reload();
+            self.close ();
+    }, 5000);
 }
 
 function toSeconds(time)
