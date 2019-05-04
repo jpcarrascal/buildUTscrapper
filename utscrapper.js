@@ -108,7 +108,7 @@ function saveText(filename, text) {
         setTimeout(function() 
             {
                 win.close();
-        }, 2000);
+        }, 4000);
     } else {
         alert('You must allow popups for this extension to work.');
     }
