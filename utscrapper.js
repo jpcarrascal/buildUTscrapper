@@ -48,7 +48,7 @@ function getList(study)
         }
     });
     //saveText("studyData.txt",JSON.stringify(studyData));
-    console.log("Sending to backend...");
+    console.log("Sending to backend... " + studyData.length + " sessions");
     submitData(JSON.stringify(studyData));
     console.log("Waiting 5 seconds to reload...");
     var reloadTimeout = setTimeout(
