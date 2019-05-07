@@ -17,11 +17,13 @@ function scrapeIt()
         var study = urlArray[5];
         console.log("Study found: " + study + " Yay!!!");
         console.log("Waiting 10 seconds for participant data...");
+        window.scrollTo(0,document.body.scrollHeight);
         var scrapeTimeout = setTimeout(
             function() 
             {
+                window.scrollTo(0,document.body.scrollHeight);
                 getList(study);
-            }, 10000);
+            }, 15000);
     }
     else
         console.log("Not a study page.");
