@@ -16,7 +16,7 @@ function scrapeIt()
         var urlArray = window.location.href.split("/");
         var study = urlArray[5];
         console.log("Study found: " + study + " Yay!!!");
-        console.log("Waiting 10 seconds for participant data...");
+        console.log("Waiting 15 seconds for participant data...");
         window.scrollTo(0,document.body.scrollHeight);
         var scrapeTimeout = setTimeout(
             function() 
