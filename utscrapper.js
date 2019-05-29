@@ -47,7 +47,7 @@ function getList(study)
             console.log("participant: "+ user + ", time:  " + seconds + ", test: " + study + ", completed: " + completed);
         }
     });
-    //saveText("studyData.txt",JSON.stringify(studyData));
+
     console.log("Sending to backend... " + studyData.length + " sessions");
     submitData(JSON.stringify(studyData));
     console.log("Waiting 5 seconds to reload...");
@@ -81,15 +81,8 @@ function toSeconds(time)
     return seconds;
 }
 
-function saveText(filename, text) {
-    var tempElem = document.createElement('a');
-    tempElem.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    tempElem.setAttribute('download', filename);
-    tempElem.click();
- }
-
- function submitData(studyJsonData)
- {
+function submitData(studyJsonData)
+{
     var saveStudyForm = document.createElement("form");
     saveStudyForm.target = "Submitting";
     saveStudyForm.method = "POST"; // or "post" if appropriate
@@ -114,4 +107,4 @@ function saveText(filename, text) {
     } else {
         alert('You must allow popups for this extension to work.');
     }
- }
+}
